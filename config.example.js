@@ -1,6 +1,6 @@
 let config = {};
 config.file = {};
-config.file.version = "1.0.0"; // If the file format changes, this should be updated. The bot won't run if the version is behind.
+config.file.version = "1.0.0"; // If the file format changes, this should be updated. The bot won't run if the version doesn't match.
 
 // Database
 config.database = {};
