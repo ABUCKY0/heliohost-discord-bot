@@ -1,14 +1,29 @@
 let config = {};
 
-// Bot
-config.bot.token = "";
-
-
 // Database
+config.database = {};
 config.database.name = "";
 config.database.username = "";
 config.database.password = "";
-config.database.url = "";
+config.database.uri = "";
+config.database.port = -1;
 
-// Preflix
-config.bot.legacy_prefix = "#";
+
+// Bot
+config.bot = {};
+config.bot.token = "";
+config.bot.id = "";
+
+// Server
+config.server = {};
+config.server.id = "";
+
+// Authentication
+// May be replaced with a database table in the future
+config.auth = {};
+config.auth.users = [''];
+config.auth.role_ids = [''];
+config.auth.role_names = [''];
+
+// Export the config object
+module.exports = { config };
