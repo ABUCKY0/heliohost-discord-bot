@@ -1,3 +1,5 @@
+const config_version = '1.0.0';
+
 // Require the necessary discord.js classes
 const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
@@ -15,6 +17,13 @@ if (!fs.existsSync(path.join(__dirname, 'config.js'))) {
 console.log('Config file found!');
 console.warn('This bot only checks that the config file exists, not that it is properly configured. Please ensure that your config file is properly configured before running the bot.');
 const { config } = require('./config.js');
+
+// Verify that config.js is up to date with config_version using semver package
+const semver = require('semver');
+if (!semver.satisfies(config.file.version, config_version)) {
+	console.error(`The config file is not up to date. Please update your config file to version ${config_version}`);
+	process.exit(1);
+}
 
 const sequelize = require("./database/database.js");
 // This will create the table if it doesn't exist (and do nothing if it already exists)

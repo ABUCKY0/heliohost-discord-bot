@@ -1,4 +1,6 @@
 let config = {};
+config.file = {};
+config.file.version = "1.0.0"; // If the file format changes, this should be updated. The bot won't run if the version is behind.
 
 // Database
 config.database = {};
@@ -13,7 +15,7 @@ config.database.port = -1;
 config.bot = {};
 config.bot.token = "";
 config.bot.id = "";
-
+config.bot.version = "1.0.0";
 // Server
 config.server = {};
 config.server.id = "";
