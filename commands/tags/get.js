@@ -8,29 +8,6 @@ module.exports = {
 		.setDescription('Get a Tag in the Database.')
 		// autocomplete
 		.addStringOption(option => option.setName('name').setDescription('The name of the Tag').setRequired(true).setAutocomplete(false)),
-	// async autocomplete(interaction) {
-	// 	console.log("Autocomplete");
-	// 	const focusedValue = interaction.options.getFocused().toLowerCase(); // Convert to lowercase for case-insensitive comparison
-	// 	let choices = [];
-	// 	try {
-	// 		const tags = await getAllTags();
-	// 		console.log("Tags:", tags); // Debugging: Log fetched tags
-	// 		tags.forEach(tag => {
-	// 			const tagName = tag.get('tagName');
-	// 			if (tagName) { // Ensure tagName is not undefined
-	// 				choices.push(tagName);
-	// 			}
-	// 		});
-	// 		console.log("Choices:", choices); // Debugging: Log choices before filtering
-	// 		const filtered = choices.filter(choice => choice.toLowerCase().startsWith(focusedValue));
-	// 		console.log("Filtered Choices:", filtered); // Debugging: Log filtered choices
-	// 		await interaction.respond(
-	// 			filtered.map(choice => ({ name: choice, value: choice })),
-	// 		);
-	// 	} catch (error) {
-	// 		console.error("Error in autocomplete:", error); // Error handling
-	// 	}
-	// },
 	async execute(interaction) {
 		await interaction.deferReply();
 		try {
