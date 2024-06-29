@@ -1,7 +1,7 @@
 // Has Modal
 const { SlashCommandBuilder, AllowedMentionsTypes, ActionRow } = require('discord.js');
 const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
-
+const { checkAuth } = require('../../utility/authorization.js');
 const { config } = require('../../config.js');
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,7 +10,7 @@ module.exports = {
     async execute(interaction) {
         // Verify the user has the correct permissions
         try {
-            if (!(config.auth.users.includes(interaction.user.id))) {
+            if (checkAuth(interaction) === false) {
                 interaction.reply({ content: "You don't have the Permissions to run this command.", ephemeral: true });
             }
 

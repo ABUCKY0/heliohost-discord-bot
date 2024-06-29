@@ -11,7 +11,7 @@ module.exports = {
         // Verify the user has the correct permissions
         await interaction.deferReply();
         try {
-            if (!(config.auth.users.includes(interaction.user.id))) {
+            if (checkAuth(interaction) === false) {
                 await interaction.editReply({ content: "You don't have the Permissions to run this command.", ephemeral: true });
                 return;
             }

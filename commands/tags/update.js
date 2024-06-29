@@ -13,7 +13,7 @@ module.exports = {
         // Verify the user has the correct permissions
         //await interaction.deferReply();
         try {
-            if (!(config.auth.users.includes(interaction.user.id))) {
+            if (checkAuth(interaction) === false ){
                 await interaction.reply({ content: "You don't have the Permissions to run this command.", ephemeral: true });
             }
             // verify tag exists
