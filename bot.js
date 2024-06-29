@@ -1,5 +1,17 @@
 const config_version = '1.0.0';
 
+const startuptext = `
++-----------------------------------------------+
+|  _   _ _____ _     ___ ___  ____   ___ _____  |
+| | | | | ____| |   |_ _/ _ \\| __ ) / _ \\_   _| |
+| | |_| |  _| | |    | | | | |  _ \\| | | || |   |
+| |  _  | |___| |___ | | |_| | |_) | |_| || |   |
+| |_| |_|_____|_____|___\\___/|____/ \\___/ |_|   |
++-----------------------------------------------+
+`
+
+console.log (startuptext);
+console.log('Starting bot...');
 // Require the necessary discord.js classes
 const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
