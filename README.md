@@ -20,11 +20,7 @@ A Tags bot created for the non-profit, [HelioNetworks](https://github.com/helion
 - `/list` Lists all tags in the database
 
 ### Additional Commands
-> These (besides `/ping`) will likley be removed, since they were initally created so I could get used to working with discord.js
 - `/ping` Shows the ping of the bot.
-- `/about` Shows information about the bot.
-- `/server` Shows information about the server.
-- `/user` Shows information about the user.
 
 
 # Other notes
