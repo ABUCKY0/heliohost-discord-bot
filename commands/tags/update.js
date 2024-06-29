@@ -13,7 +13,7 @@ module.exports = {
         // Verify the user has the correct permissions
         //await interaction.deferReply();
         try {
-            if (checkAuth(interaction) === false ){
+            if (checkAuth(interaction) === false) {
                 await interaction.reply({ content: "You don't have the Permissions to run this command.", ephemeral: true });
             }
             // verify tag exists
@@ -27,7 +27,7 @@ module.exports = {
             const modal = new ModalBuilder()
                 .setCustomId("EditTagModal")
                 .setTitle("Edit Tag");
-            
+
             const old_tagname = new TextInputBuilder()
                 .setCustomId("oldtagname")
                 .setLabel("Old Name (DO NOT CHANGE THIS)")

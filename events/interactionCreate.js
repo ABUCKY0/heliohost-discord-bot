@@ -1,9 +1,9 @@
 const { Events } = require('discord.js');
-const {sequelize, addTag, updateTag} = require("../database/database.js");
+const { sequelize, addTag, updateTag } = require("../database/database.js");
 module.exports = {
-	name: Events.InteractionCreate,
-	async execute(interaction) {
-		if (interaction.isChatInputCommand()) {
+    name: Events.InteractionCreate,
+    async execute(interaction) {
+        if (interaction.isChatInputCommand()) {
 
             const command = interaction.client.commands.get(interaction.commandName);
 
@@ -30,7 +30,7 @@ module.exports = {
                 case "AddTagModal":
                     await interaction.deferReply();
                     try {
-                    // At this point, I need to add the inputted tag to the database
+                        // At this point, I need to add the inputted tag to the database
                         const tagName = interaction.fields.getTextInputValue("input_tagname") || "";
                         const tagBody = interaction.fields.getTextInputValue("input_tagbody") || "";
                         const tagReturnValue = await addTag(tagName, tagBody);
@@ -42,12 +42,12 @@ module.exports = {
                             await interaction.followUp(`Tag Already Exists. Try editing it or removing it instead.`);
                         }
                         else {
-                            await interaction.followUp({ content: 'There was an error while adding the tag to the database.'});
+                            await interaction.followUp({ content: 'There was an error while adding the tag to the database.' });
                         }
                     }
-                    catch (error){
+                    catch (error) {
                         console.error(error);
-                        await interaction.followUp({ content: 'There was an error while adding the tag to the database.'});
+                        await interaction.followUp({ content: 'There was an error while adding the tag to the database.' });
                     }
                     break;
                 case "EditTagModal":
@@ -66,17 +66,17 @@ module.exports = {
                             await interaction.followUp(`Tag does not exist. Try adding it instead.`);
                         }
                         else {
-                            await interaction.followUp({ content: 'There was an error while updating the tag in the database.'});
+                            await interaction.followUp({ content: 'There was an error while updating the tag in the database.' });
                         }
                     }
-                    catch (error){
+                    catch (error) {
                         console.error(error);
-                        await interaction.followUp({ content: 'There was an error while updating the tag in the database.'});
+                        await interaction.followUp({ content: 'There was an error while updating the tag in the database.' });
                     }
                     break;
                 default:
                     await interaction.reply("I couldn't find a matching handler for the modal.");
             }
         }
-	},
+    },
 };

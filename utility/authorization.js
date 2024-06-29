@@ -9,6 +9,6 @@ module.exports = {
             return true;
         }
 
-        return false ;
+        return false;
     }
 }``

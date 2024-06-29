@@ -6,9 +6,9 @@ const Sequelize = require('sequelize');
 
 // Check if the config file exists
 if (!fs.existsSync(path.join(__dirname, 'config.js'))) {
-    fs.copyFileSync(path.join(__dirname, 'config.example.js'), path.join(__dirname, 'config.js'));
-    console.log('Please configure your bot in config.js');
-    process.exit(1);
+	fs.copyFileSync(path.join(__dirname, 'config.example.js'), path.join(__dirname, 'config.js'));
+	console.log('Please configure your bot in config.js');
+	process.exit(1);
 }
 
 // Import the config file
@@ -20,7 +20,7 @@ const sequelize = require("./database/database.js");
 // This will create the table if it doesn't exist (and do nothing if it already exists)
 sequelize.Tag.sync();
 // Create the Client and Commands Collection
-const client = new Client({ intents: [GatewayIntentBits.Guilds], allowedMentions: { parse: ['users', 'roles'], repliedUser: true }});
+const client = new Client({ intents: [GatewayIntentBits.Guilds], allowedMentions: { parse: ['users', 'roles'], repliedUser: true } });
 client.commands = new Collection();
 
 // Load all commands
