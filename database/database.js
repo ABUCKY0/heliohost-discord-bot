@@ -8,7 +8,7 @@ const { config } = require('../config.js');
 const sequelize = new Sequelize(config.database.name, config.database.username, config.database.password, {
   host: config.database.uri,
   dialect: 'mariadb',
-  logging: console.log,
+  logging: false,
   storage: 'database.mariadb'
 });
 
