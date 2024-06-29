@@ -2,6 +2,7 @@
 const { SlashCommandBuilder, AllowedMentionsTypes, ActionRow } = require('discord.js');
 const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 
+const { checkAuth } = require('../../utility/authorization.js');
 const { config } = require('../../config.js');
 const { getTag, updateTag } = require('../../database/database.js');
 module.exports = {
