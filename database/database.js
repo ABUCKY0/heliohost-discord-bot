@@ -1,6 +1,10 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const { config } = require('../config.js');
 
+/**
+ * The sequelize object that connects to the database.
+ * @type {Sequelize}
+ */
 const sequelize = new Sequelize(config.database.name, config.database.username, config.database.password, {
   host: config.database.uri,
   dialect: 'mariadb',
@@ -8,6 +12,13 @@ const sequelize = new Sequelize(config.database.name, config.database.username, 
   storage: 'database.mariadb'
 });
 
+
+/**
+ * The Tag object that represents a tag in the database.
+ * @type {Model}
+ * @property {string} tagName The name of the tag.
+ * @property {string} tagDescription The body of the tag.
+ */
 const Tag = sequelize.define('Tag', {
   tagName: {
     type: DataTypes.STRING,
@@ -19,14 +30,13 @@ const Tag = sequelize.define('Tag', {
   }
 });
 
-
+/**
+ * Adds a tag to the database
+ * @param tagName The name of the tag to add.
+ * @param tagBody The body of the tag to add.
+ * @returns 0 if Successful, -1 if tag already exists, and 1 if there was another error.
+ */
 async function addTag(tagName, tagBody) {
-  /**
-   * Adds a tag to the database
-   * @param tagName The name of the tag to add.
-   * @param tagBody The body of the tag to add.
-   * @returns 0 if Successful, -1 if tag already exists, and 1 if there was another error.
-   */
   tagName = tagName.toLowerCase();
 
   const existingTag = await Tag.findOne({ where: { tagName: tagName } });
@@ -46,12 +56,12 @@ async function addTag(tagName, tagBody) {
   }
 }
 
+/** 
+ * Removes a tag from the database
+ * @param tagName The name of the tag to remove.
+ * @returns 0 if Successful, -1 if tag isn't present, and 1 if there was another error.
+ */
 async function removeTag(tagName) {
-  /** 
-   * Removes a tag from the database
-   * @param tagName The name of the tag to remove.
-   * @returns 0 if Successful, -1 if tag isn't present, and 1 if there was another error.
-   */
   const existingTag = await Tag.findOne({ where: { tagName: tagName } });
   if (existingTag) {
     try {
@@ -69,15 +79,16 @@ async function removeTag(tagName) {
   }
 }
 
+/**
+ * Updates a tag in the database
+ * @param oldTagName The name of the tag to update.
+ * @param oldTagBody The body of the tag to update.
+ * @param newTagName The new name of the tag.
+ * @param newTagBody The new body of the tag.
+ * @returns 0 if Successful, -1 if tag isn't present, and 1 if there was another error.
+ */
 async function updateTag(oldTagName, newTagName, newTagBody) {
-  /**
-   * Updates a tag in the database
-   * @param oldTagName The name of the tag to update.
-   * @param oldTagBody The body of the tag to update.
-   * @param newTagName The new name of the tag.
-   * @param newTagBody The new body of the tag.
-   * @returns 0 if Successful, -1 if tag isn't present, and 1 if there was another error.
-   */
+
   const existingTag = await Tag.findOne({ where: { tagName: oldTagName } });
   if (!existingTag) {
     console.log("Tag does not exist.");
@@ -115,11 +126,11 @@ async function getTag(tagName) {
   }
 }
 
+/**
+ * Gets all tags from the database
+ * @returns An array of all tags in the database.
+ */
 async function getAllTags() {
-  /**
-   * Gets all tags from the database
-   * @returns An array of all tags in the database.
-   */
   const tags = await Tag.findAll();
   console.log(`All tags retrieved.`);
   return tags;
