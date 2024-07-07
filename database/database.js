@@ -26,7 +26,7 @@ const Tag = sequelize.define('Tag', {
     unique: true
   },
   tagDescription: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING(2000),
   }
 });
 
