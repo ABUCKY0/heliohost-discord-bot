@@ -2,6 +2,17 @@ const { Sequelize, DataTypes } = require('sequelize');
 const { config } = require('../config.js');
 
 /**
+ * Enum for Return Status
+ * @readonly
+ * @enum {number}
+ */
+const Status = Object.freeze({
+  SUCCESS: 0,
+  FAIL: -1,
+  ERROR: 1
+});
+
+/**
  * The sequelize object that connects to the database.
  * @type {Sequelize}
  */
@@ -31,6 +42,22 @@ const Tag = sequelize.define('Tag', {
 });
 
 /**
+ * The Wiki object that represents an article reference in the database.
+ * @type {Model}
+ * @property {string} articleName The name of the article entry to reference.
+ * @property {string} tagDescription The body of the reference.
+ */
+const Wiki = sequelize.define("Wiki", {
+  articleName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
+  articleBody: {
+    type: DataTypes.STRING(2000)
+  }
+});
+/**
  * Adds a tag to the database
  * @param tagName The name of the tag to add.
  * @param tagBody The body of the tag to add.
@@ -42,17 +69,17 @@ async function addTag(tagName, tagBody) {
   const existingTag = await Tag.findOne({ where: { tagName: tagName } });
   if (existingTag) {
     console.log("Tag already Exists");
-    return -1;
+    return Status.FAIL;
   }
 
   try {
     const tag = await Tag.create({ tagName: tagName, tagDescription: tagBody });
     console.log(`Tag added: `, tagName);
-    return 0;
+    return Status.SUCCESS;
   }
   catch (error) {
     console.error('Error adding tag: ', error)
-    return 1;
+    return Status.ERROR;
   }
 }
 
@@ -67,15 +94,15 @@ async function removeTag(tagName) {
     try {
       await Tag.destroy({ where: { tagName: tagName } });
       console.log(`Tag Removed: `, tagName)
-      return 0;
+      return Status.SUCCESS;
     } catch (error) {
       console.error('Error removing tag: ', error);
-      return 1;
+      return Status.ERROR;
     }
   }
   else {
     console.log("Tag doesn't exist.");
-    return -1;
+    return Status.FAIL;
   }
 }
 
@@ -92,7 +119,7 @@ async function updateTag(oldTagName, newTagName, newTagBody) {
   const existingTag = await Tag.findOne({ where: { tagName: oldTagName } });
   if (!existingTag) {
     console.log("Tag does not exist.");
-    return -1;
+    return Status.FAIL;
   }
 
   const updateData = {};
@@ -102,10 +129,10 @@ async function updateTag(oldTagName, newTagName, newTagBody) {
   try {
     await Tag.update(updateData, { where: { tagName: oldTagName } });
     console.log(`Tag updated: `, newTagName || oldTagName);
-    return 0;
+    return Status.SUCCESS;
   } catch (error) {
     console.error('Error updating tag: ', error);
-    return 1;
+    return Status.ERROR;
   }
 }
 

@@ -1,15 +1,11 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { config } = require('../../config.js');
-const { removeTag } = require('../../database/database.js');
-const { checkAuth } = require('../../utility/authorization.js');
+const { config } = require('../../../config.js');
+const { removeTag } = require('../../../database/database.js');
+const { checkAuth } = require('../../../utility/authorization.js');
 
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('remove')
-        .setDescription('Remove a Tag from the Database.')
-        .addStringOption(option => option.setName('name').setDescription('The name of the Tag').setRequired(true)),
-    async execute(interaction) {
+    async cmdTagDelete(interaction) {
         // Verify the user has the correct permissions
         await interaction.deferReply();
         try {
@@ -17,7 +13,7 @@ module.exports = {
                 await interaction.editReply({ content: "You don't have the Permissions to run this command.", ephemeral: true });
                 return;
             }
-            const tagName = await interaction.options.getString('name');
+            const tagName = await interaction.options.getString('tag');
             if (tagName === null) {
                 await interaction.editReply({ content: "You need to provide a name to remove a tag.", ephemeral: true });
                 return;

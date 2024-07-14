@@ -1,12 +1,9 @@
 const { SlashCommandBuilder } = require('discord.js');
 
-const { config } = require('../../config.js');
-const { getAllTags } = require('../../database/database.js');
+const { config } = require('../../../config.js');
+const { getAllTags } = require('../../../database/database.js');
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('list')
-		.setDescription('List all tags in the Database.'),
-	async execute(interaction) {
+	async cmdTagList(interaction) {
 
 		await interaction.deferReply();
 		try {

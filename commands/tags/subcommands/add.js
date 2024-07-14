@@ -1,13 +1,10 @@
 // Has Modal
 const { SlashCommandBuilder, AllowedMentionsTypes, ActionRow } = require('discord.js');
 const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
-const { checkAuth } = require('../../utility/authorization.js');
-const { config } = require('../../config.js');
+const { checkAuth } = require('../../../utility/authorization.js');
+const { config } = require('../../../config.js');
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('add')
-        .setDescription('Add a Tag to the Database.'),
-    async execute(interaction) {
+    async cmdTagAdd(interaction) {
         // Verify the user has the correct permissions
         try {
             if (checkAuth(interaction) === false) {
@@ -22,12 +19,14 @@ module.exports = {
             const input_tagname = new TextInputBuilder()
                 .setCustomId("input_tagname")
                 .setLabel("Name")
-                .setStyle(TextInputStyle.Short);
+                .setStyle(TextInputStyle.Short)
+                .setMaxLength(255);
 
             const input_tagbody = new TextInputBuilder()
                 .setCustomId("input_tagbody")
                 .setLabel("Body")
-                .setStyle(TextInputStyle.Paragraph);
+                .setStyle(TextInputStyle.Paragraph)
+                .setMaxLength(2000);
 
             // Action Rows to hold inputs
             const firstActionRow = new ActionRowBuilder().addComponents(input_tagname);
