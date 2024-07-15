@@ -3,6 +3,7 @@ const { sequelize, addTag, updateTag } = require("../database/database.js");
 module.exports = {
     name: Events.InteractionCreate,
     async execute(interaction) {
+        try {
         if (interaction.isChatInputCommand()) {
 
             const command = interaction.client.commands.get(interaction.commandName);
@@ -78,5 +79,10 @@ module.exports = {
                     await interaction.reply("I couldn't find a matching handler for the modal.");
             }
         }
-    },
+    } catch {
+        console.error(error);
+        await interaction.reply({ content: "There was an error while processing your interaction." });
+
+    }
+},
 };
