@@ -61,7 +61,7 @@ module.exports = {
     async execute(interaction) {
         switch(interaction.options.getSubcommand()) {
             case 'add':
-                await cmdTagUpdate(interaction);
+                await cmdTagAdd(interaction);
                 break;
             case 'delete':
                 await cmdTagDelete(interaction);
