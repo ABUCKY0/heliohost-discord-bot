@@ -19,12 +19,13 @@ module.exports = {
         ),
     async execute(interaction) {
         try {
-            const url = interaction.options.getString('url');
+            let url = interaction.options.getString('url');
             // Validate that the URL is valid
-            if (!url.match(/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/)) {
-                await interaction.reply({ content: "Invalid URL provided. Make sure to include https:// before the url name.", ephemeral: true });
-                return;
-            }
+            
+            // remove https:// and http:// from the URL
+            url = url.replace(/(^\w+:|^)\/\//, '');
+            url = url.replace(/\/$/, '');
+
             const result = await sslChecker(url);
             console.log (result);
             const embed = new EmbedBuilder()
