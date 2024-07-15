@@ -1,8 +1,6 @@
 // Has Modal
-const { SlashCommandBuilder, AllowedMentionsTypes, ActionRow } = require('discord.js');
-const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
+const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 const { checkAuth } = require('../../../utility/authorization.js');
-const { config } = require('../../../config.js');
 module.exports = {
     async cmdTagAdd(interaction) {
         // Verify the user has the correct permissions

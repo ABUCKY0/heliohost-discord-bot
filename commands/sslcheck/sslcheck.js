@@ -3,11 +3,7 @@
  */
 
 const sslChecker = require('ssl-checker');
-const { SlashCommandBuilder, AllowedMentionsTypes, ActionRow, Embed } = require('discord.js');
-const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder } = require('discord.js');
-const { checkAuth } = require('../../utility/authorization.js');
-const { config } = require('../../config.js');
-const { time, TimestampStyles } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('sslcheck')

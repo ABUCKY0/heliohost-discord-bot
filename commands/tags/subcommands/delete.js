@@ -1,5 +1,3 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { config } = require('../../../config.js');
 const { removeTag } = require('../../../database/database.js');
 const { checkAuth } = require('../../../utility/authorization.js');
 

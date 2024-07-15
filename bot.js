@@ -13,7 +13,7 @@ const startuptext = `
 console.log (startuptext);
 console.log('Starting bot...');
 // Require the necessary discord.js classes
-const { Client, Events, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');

@@ -1,11 +1,6 @@
 // Gets all dns records for a given domain
-const sslChecker = require('ssl-checker');
-const { SlashCommandBuilder, AllowedMentionsTypes, ActionRow, Embed } = require('discord.js');
-const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, EmbedBuilder } = require('discord.js');
-const { checkAuth } = require('../../utility/authorization.js');
-const { config } = require('../../config.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const dns = require('dns').promises;
-const { isAsyncFunction } = require('util/types');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('dns')

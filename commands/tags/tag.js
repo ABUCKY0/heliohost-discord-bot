@@ -1,8 +1,7 @@
 // Moving Subcommands to their own files
 // Description: Tag command to create, delete, edit, and view tags
 
-const { SlashCommandBuilder, AllowedMentionsTypes, ActionRow } = require('discord.js');
-const { ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
+const { SlashCommandBuilder } = require('discord.js');
 const { checkAuth } = require('../../utility/authorization.js');
 const { config } = require('../../config.js');
 // import from ./tags/*.js

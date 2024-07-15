@@ -1,6 +1,3 @@
-const { SlashCommandBuilder } = require('discord.js');
-
-const { config } = require('../../../config.js');
 const { getTag } = require('../../../database/database.js');
 module.exports = {
 	async cmdTagGet(interaction) {

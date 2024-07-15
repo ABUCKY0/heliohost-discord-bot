@@ -1,5 +1,5 @@
 const { Events } = require('discord.js');
-const { sequelize, addTag, updateTag } = require("../database/database.js");
+const { addTag, updateTag } = require("../database/database.js");
 module.exports = {
     name: Events.InteractionCreate,
     async execute(interaction) {
