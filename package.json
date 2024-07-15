@@ -5,7 +5,7 @@
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js",
-    "commands": "node register-interactions.js"
+    "commands": "node bot-utils/register-interactions.js"
   },
   "author": "ABUCKY0",
   "license": "MIT",
