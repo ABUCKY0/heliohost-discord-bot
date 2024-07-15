@@ -1,4 +1,4 @@
-const config_version = '1.0.0';
+const config_version = '1.0.1';
 
 const startuptext = `
 +-----------------------------------------------+
@@ -38,8 +38,10 @@ if (!semver.satisfies(config.file.version, config_version)) {
 }
 
 const sequelize = require("./database/database.js");
+const { time } = require('console');
 // This will create the table if it doesn't exist (and do nothing if it already exists)
 sequelize.Tag.sync();
+
 // Create the Client and Commands Collection
 const client = new Client({ intents: [GatewayIntentBits.Guilds], allowedMentions: { parse: ['users', 'roles'], repliedUser: true } });
 client.commands = new Collection();
@@ -76,5 +78,15 @@ for (const file of eventFiles) {
 	}
 }
 
-
+// Wait to login until database is connected
+sequelize.sequelize
+  .authenticate()
+  .then(function(err) {
+    console.log('Connection has been established successfully.');
+	
 client.login(config.bot.token);
+
+  })
+  .catch(function (err) {
+    console.log('Unable to connect to the database:', err);
+  });

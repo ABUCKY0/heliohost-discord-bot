@@ -11,7 +11,8 @@ const Status = Object.freeze({
   FAIL: -1,
   ERROR: 1
 });
-
+let connectionTry = 1;
+let backoffbase =  config.database.backoffBase;
 /**
  * The sequelize object that connects to the database.
  * @type {Sequelize}
@@ -19,8 +20,28 @@ const Status = Object.freeze({
 const sequelize = new Sequelize(config.database.name, config.database.username, config.database.password, {
   host: config.database.uri,
   dialect: 'mariadb',
-  logging: false,
-  storage: 'database.mariadb'
+  logging: console.log,
+  storage: 'database.mariadb',
+  retry: {
+    max: 10, // Maximum number of retries
+    match: [
+      Sequelize.ConnectionError,
+      Sequelize.ConnectionTimedOutError,
+      Sequelize.TimeoutError
+    ], // Retry for specific Sequelize errors
+    backoffBase: config.database.backoffBase, // Initial delay in ms
+    backoffExponent: config.database.backoffExponent, // Exponential backoff factor
+  },
+  hooks: {
+    beforeConnect: (config) => {
+      console.log('[Database Hook] Attempting to connect to database, try #' + connectionTry +  " of 10. Retrying in " + backoffbase/1000+ " seconds");
+      connectionTry++;
+      backoffbase = backoffbase * config.backoffExponent;
+    },
+    afterConnect: (connection) => {
+      console.log('Connected to database');
+    }
+  },
 });
 
 
