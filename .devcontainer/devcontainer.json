@@ -1,1 +1,5 @@
-{"image":"mcr.microsoft.com/devcontainers/javascript-node:16"}
+{
+    "image":"mcr.microsoft.com/devcontainers/javascript-node:16",
+    "postCreateCommand": "npm install && sudo apt update && sudo apt install -y mariadb-server",
+    "postStartCommand": "sudo service mariadb.service start"
+}
