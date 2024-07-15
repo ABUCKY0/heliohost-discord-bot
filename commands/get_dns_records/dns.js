@@ -120,27 +120,6 @@ module.exports = {
                 .setTimestamp()
 
             if (type == 'ALL') {
-                /*
-                A Records:
-                - `0.0.0.0`, TTL: 144
-
-                AAAA Records:
-                - `::`, TTL: 144
-
-                CNAME Records:
-                - `example.com`, TTL: 144
-
-                MX Records:
-                - `mail.example.com`, Priority: 10
-
-                NS Records:
-                - `ns1.example.com`
-
-                TXT Records:
-                - `v=spf1 mx a -all`
-                
-                and so on
-                */
                 let fields = [];
                 let a_record_string = records.a.map(record => `- \`${record.address}\`, TTL: ${record.ttl}`).join('\n') || 'No A Records found.';
                 let aaaa_record_string = records.aaaa.map(record => `- \`${record.address}\`, TTL: ${record.ttl}`).join('\n') || 'No AAAA Records found.';
