@@ -1,6 +1,6 @@
-# Tags Bot
+# HelioHost Bot
 
-A Tags bot created for the non-profit, [HelioNetworks](https://github.com/helionetworks), who created and runs [HelioHost](https://heliohost.org)
+A Tags bot created by @ABUCKY0 for the non-profit, [HelioNetworks](https://github.com/helionetworks), who created and runs [HelioHost](https://heliohost.org)
 
 # Setup
 
@@ -12,13 +12,25 @@ A Tags bot created for the non-profit, [HelioNetworks](https://github.com/helion
 
 
 ## Commands:
+> Text wrapped in `<>` refrences a command that has input that isn't limited (i.e. Specific options only). whereas `[]` references a fixed list command.
+- `/tag` Tag main command. Subcommands listed below:
+  - `add` Create a new tag. 
+  - `delete` Delete a tag from the DB. (Supports Autocomplete)
+  - `get` Retreve a tag's content from the DB. (supports autocomplete)
+  - `list` Lists all tags in the database.
+  - `edit` Change the name or content of a tag.
 
-- `/add` Adds a tag to the Database (Modal)
-- `/get <name>` Gets a tag from the database
-- `/remove <name>` Removes a tag from the Databse
-- `/update <name>` Updates a tag in the database (Modal)
-- `/list` Lists all tags in the database
+- `/wiki` Wiki main command. Designed to contain excerpts from the HelioHost wiki. Subcommands listed below:
+  - `add` Create a new wiki article. 
+  - `delete <name>` Delete an article from the DB. (Supports Autocomplete)
+  - `get <name>` Retreve an article's content from the DB. (supports autocomplete)
+  - `list` Lists all articles in the database.
+  - `edit <name>` Change the name or content of an article.
 
+- `/pymodules [server] [version]` Links to the relevant python module page, for that version and server. 
+- `/dns <domain (without protocol)> [record]` Gets the DNS records of a specified domain.
+- `/sslcheck <url>` Checks the SSL configuration of a given website.
+- `/statuscheck <url>` Checks wether a website is accessable by the bot, and what it's statuscode was during that request.
 ### Additional Commands
 - `/ping` Shows the ping of the bot.
 
