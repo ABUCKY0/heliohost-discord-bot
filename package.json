@@ -2,15 +2,16 @@
   "name": "heliohost-tags-bot",
   "version": "1.0.0",
   "description": "A Tags bot for HelioHost",
-  "main": "bot.js",
+  "main": "src/bot.js",
   "scripts": {
-    "start": "node bot.js",
-    "commands": "node bot-utils/register-interactions.js"
+    "start": "node src/bot.js",
+    "commands": "node src/bot-utils/register-interactions.js"
   },
   "author": "ABUCKY0",
   "license": "MIT",
   "dependencies": {
     "@discordjs/formatters": "^0.4.0",
+    "@iamtraction/google-translate": "^2.0.1",
     "discord.js": "14.11.0",
     "mariadb": "^3.3.1",
     "node-fetch": "2.7.0",
