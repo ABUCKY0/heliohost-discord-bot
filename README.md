@@ -12,7 +12,7 @@ A Tags bot created by @ABUCKY0 for the non-profit, [HelioNetworks](https://githu
 
 
 ## Commands:
-> Text wrapped in `<>` refrences a command that has input that isn't limited (i.e. Specific options only). whereas `[]` references a fixed list command.
+> Text wrapped in `<>` refrences a command that has input that isn't limited (i.e. Specific options only). `[]` references a fixed list input, `{}` represents optional inputs.
 - `/tag` Tag main command. Subcommands listed below:
   - `add` Create a new tag. 
   - `delete` Delete a tag from the DB. (Supports Autocomplete)
@@ -33,6 +33,10 @@ A Tags bot created by @ABUCKY0 for the non-profit, [HelioNetworks](https://githu
 - `/statuscheck <url>` Checks wether a website is accessable by the bot, and what it's statuscode was during that request.
 ### Additional Commands
 - `/ping` Shows the ping of the bot.
+- `/translate <text> {[output-language]} {[input-language]}` Translate text
+### Context Menu Commands
+> 🗨️ Represents a message, 🧍Represents a user context menu command.
+- `🗨️Translate to English` Context menu command to Translate a message to English
 
 
 # Other notes
