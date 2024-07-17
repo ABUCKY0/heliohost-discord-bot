@@ -1,35 +1,35 @@
 // Moving Subcommands to their own files
-// Description: Tag command to create, delete, edit, and view tags
+// Description: Wiki command to create, delete, edit, and view Wiki Articles
 
 const { SlashCommandBuilder } = require('discord.js');
 const { checkAuth } = require('../../utility/authorization.js');
 const { config } = require('../../config.js');
-// import from ./tags/*.js
+// import from ./wiki/*.js
 
 // Add, Delete, edit, Get, List
-const { cmdTagAdd } = require('./subcommands/add.js');
-const { cmdTagDelete } = require('./subcommands/delete.js');
-const { cmdTagEdit } = require('./subcommands/edit.js');
-const { cmdTagGet } = require('./subcommands/get.js');
-const { cmdTagList } = require('./subcommands/list.js');
-const { manageTags, DBManagementActions } = require('../../database/database.js');
+const { cmdWikiAdd } = require('./subcommands/add.js');
+const { cmdWikiDelete } = require('./subcommands/delete.js');
+const { cmdWikiEdit } = require('./subcommands/edit.js');
+const { cmdWikiGet } = require('./subcommands/get.js');
+const { cmdWikiList } = require('./subcommands/list.js');
+const { manageWiki, DBManagementActions } = require('../../database/database.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('tag')
-        .setDescription('Tag Management')
+        .setName('wiki')
+        .setDescription('Wiki Article Ref Management')
         .addSubcommand(subcommand =>
             subcommand
                 .setName('add')
-                .setDescription('Add a Tag to the Database.')
+                .setDescription('Add a Wiki Article entry to the Database.')
         )
         .addSubcommand(subcommand =>
             subcommand
                 .setName('delete')
-                .setDescription('Delete a Tag from the Database.')
+                .setDescription('Delete an Article Entry from the Database.')
                 .addStringOption(option =>
-                    option.setName('tag')
-                        .setDescription('The name of the Tag to delete.')
+                    option.setName('article')
+                        .setDescription('The name of the Article Entry to delete.')
                         .setRequired(true)
                         .setAutocomplete(true)
                 )
@@ -37,10 +37,10 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('edit')
-                .setDescription('Edit a Tag in the Database.')
+                .setDescription('Edit an Article present in the Database.')
                 .addStringOption(option =>
-                    option.setName('tag')
-                        .setDescription('The name of the Tag to edit.')
+                    option.setName('article')
+                        .setDescription('The name of the article to edit.')
                         .setRequired(true)
                         .setAutocomplete(true)
                 )
@@ -48,10 +48,10 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('get')
-                .setDescription('View a Tag from the Database.')
+                .setDescription('Reference an artcle from the Database.')
                 .addStringOption(option =>
-                    option.setName('tag')
-                        .setDescription('The name of the Tag to get.')
+                    option.setName('article')
+                        .setDescription('The name of the article to get.')
                         .setRequired(true)
                         .setAutocomplete(true)
                 )
@@ -59,24 +59,24 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('list')
-                .setDescription('List all Tags in the Database.')
+                .setDescription('List all Wiki Articles in the Database.')
         ),
     async execute(interaction) {
         switch(interaction.options.getSubcommand()) {
             case 'add':
-                await cmdTagAdd(interaction);
+                await cmdWikiAdd(interaction);
                 break;
             case 'delete':
-                await cmdTagDelete(interaction);
+                await cmdWikiDelete(interaction);
                 break;
             case 'edit':
-                await cmdTagEdit(interaction);
+                await cmdWikiEdit(interaction);
                 break;
             case 'get':
-                await cmdTagGet(interaction);
+                await cmdWikiGet(interaction);
                 break;
             case 'list':
-                await cmdTagList(interaction);
+                await cmdWikiList(interaction);
                 break;
             default:
                 await interaction.reply({ content: "Invalid Subcommand.", ephemeral: true });
@@ -87,12 +87,12 @@ module.exports = {
         try {
 			console.log("hit autocomplete");
 			const focusedOption = interaction.options.getFocused(true);
-			if (focusedOption.name === 'tag') {
-				// Get all tags
-				const tags = await manageTags(DBManagementActions.GETALL);
+			if (focusedOption.name === 'article') {
+				// Get all articles
+				const wikiArticles = await manageWiki(DBManagementActions.GETALL);
 				const choices = [];
-				for (const tag of tags) {
-					choices.push(tag.get('tagName'));
+				for (const article of wikiArticles) {
+					choices.push(article.get('articleName'));
 				}
 				if (choices.length > 25) {
 					// splice to 25
@@ -110,5 +110,5 @@ module.exports = {
 		catch (error) {
 			console.error(error);
 		}
-    } 
+    }
 }

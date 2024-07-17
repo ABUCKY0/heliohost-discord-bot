@@ -1,10 +1,10 @@
-const { getAllTags } = require('../../../database/database.js');
+const { manageTags, DBManagementActions } = require('../../../database/database.js');
 module.exports = {
 	async cmdTagList(interaction) {
 
 		await interaction.deferReply();
 		try {
-			const tags = await getAllTags();
+			const tags = await manageTags(DBManagementActions.GETALL);
 			let message = "Tags: `";
 			if (tags.length === 0) {
 				message = "No tags found.";
@@ -18,6 +18,11 @@ module.exports = {
 				message = message.slice(0, -2);
 			}
 			message += "`";
+			
+			if (message.length > 2000) {
+				// splice to 1997 and add ...
+				message = message.slice(0, 1997) + "...";
+			}
 			await interaction.editReply({ content: message });
 		}
 		catch (error) {

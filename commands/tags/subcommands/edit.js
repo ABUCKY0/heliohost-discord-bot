@@ -2,7 +2,7 @@
 const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 
 const { checkAuth } = require('../../../utility/authorization.js');
-const { getTag } = require('../../../database/database.js');
+const { manageTags, DBManagementActions, Status } = require('../../../database/database.js');
 module.exports = {
       async cmdTagEdit(interaction) {
         // Verify the user has the correct permissions
@@ -12,7 +12,7 @@ module.exports = {
                 await interaction.reply({ content: "You don't have the Permissions to run this command.", ephemeral: true });
             }
             // verify tag exists
-            const oldTag = await getTag(interaction.options.getString('tag'));
+            const oldTag = await manageTags(DBManagementActions.GET, interaction.options.getString('tag'));
             if (!oldTag) {
                 await interaction.reply({ content: "Tag does not exist.", ephemeral: true });
                 return;

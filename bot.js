@@ -39,8 +39,9 @@ if (!semver.satisfies(config.file.version, config_version)) {
 
 const sequelize = require("./database/database.js");
 const { time } = require('console');
-// This will create the table if it doesn't exist (and do nothing if it already exists)
+// This will create the tables if they doesn't exist (and do nothing if they already exists)
 sequelize.Tag.sync();
+sequelize.Wiki.sync();
 
 // Create the Client and Commands Collection
 const client = new Client({ intents: [GatewayIntentBits.Guilds], allowedMentions: { parse: ['users', 'roles'], repliedUser: true } });

@@ -1,4 +1,4 @@
-const { removeTag } = require('../../../database/database.js');
+const { manageTags, DBManagementActions, Status } = require('../../../database/database.js');
 const { checkAuth } = require('../../../utility/authorization.js');
 
 
@@ -17,12 +17,13 @@ module.exports = {
                 return;
             }
 
-            const tag = await removeTag(tagName);
-            if (tag === 0) {
+            const tag = await manageTags(DBManagementActions.DELETE,tagName);
+            console.log(tag);
+            if (tag === Status.SUCCESS ) {
                 await interaction.editReply({ content: `Removed tag: ${tagName}` });
                 return;
             }
-            else if (tag === -1) {
+            else if (tag === Status.FAIL) {
                 await interaction.editReply({ content: `Could not find tag: ${tagName}` });
             }
             else {
