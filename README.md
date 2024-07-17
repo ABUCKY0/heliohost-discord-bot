@@ -7,7 +7,7 @@ A Tags bot created by @ABUCKY0 for the non-profit, [HelioNetworks](https://githu
 - Clone this repository
 - Run `npm install --omit=dev` to install all non-dev dependencies, or remove the `--omit=dev` portion to install `eslint` in a development environment.
 - Run `npm start` to start the bot. This will create config.js from config.example.js, then ask you to fill that out. It won't verify if all of config.js was filled out properly though, it only checks if the file exists.
-- Run `npm run commands` to register all commands present in the `/commands` directory.
+- Run `npm run commands` to register all commands present in the `src/commands` directory.
 - Finally, re-run `npm start` to start the bot.
 
 
@@ -31,13 +31,20 @@ A Tags bot created by @ABUCKY0 for the non-profit, [HelioNetworks](https://githu
 - `/dns <domain (without protocol)> [record]` Gets the DNS records of a specified domain.
 - `/sslcheck <url>` Checks the SSL configuration of a given website.
 - `/statuscheck <url>` Checks wether a website is accessable by the bot, and what it's statuscode was during that request.
+
+***
+
 ### Additional Commands
 - `/ping` Shows the ping of the bot.
 - `/translate <text> {[output-language]} {[input-language]}` Translate text
+
+***
+
 ### Context Menu Commands
 > 🗨️ Represents a message, 🧍Represents a user context menu command.
 - `🗨️Translate to English` Context menu command to Translate a message to English
 
+***
 
 # Other notes
 - Automatically creates `config.js` from `config.example.js`
