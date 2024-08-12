@@ -1,7 +1,9 @@
 
 const { SlashCommandBuilder, ModalSubmitFields, } = require('discord.js');
 const { autocomplete } = require('../wiki/wiki');
-
+const fetch = require('node-fetch');
+const { FetchError } = require('node-fetch');
+const { JSDOM } = require('jsdom');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('pyinfo')
@@ -16,40 +18,72 @@ module.exports = {
                 )
         )
         .addStringOption(option =>
-            option.setName('module')
-                .setDescription('What module you want to get information on.')
+            option.setName('version')
+                .setDescription('What version you want to get information on.')
                 .setRequired(true)
-                .setChoices(
-                    { name: 'Python 2.7', value: 'Python 2.7' },
-                    { name: 'Python 3.6', value: 'Python 3.6' },
-                    { name: 'Python 3.10', value: 'Python 3.10' }
-                )
+                .setAutocomplete(true)
         ),
     async execute(interaction) {
-        const server = interaction.options.getString('server');
-        const module = interaction.options.getString('module');
-        if (server === "Tommy") {
-            if (module === "Python 2.7") {
-                await interaction.reply("https://krydos.heliohost.org/pyinfo/info2.7.py")
-            }
-            if (module === "Python 3.6") {
-                await interaction.reply("https://krydos.heliohost.org/pyinfo/info3.6.py")
-            }
-            if (module === "Python 3.10") {
-                await interaction.reply("https://krydos.heliohost.org/pyinfo/info3.10.py")
-            }
 
+        await interaction.deferReply();
+        const server = interaction.options.getString('server');
+        const version = interaction.options.getString('version');
+        let url = "";
+        if (server === 'Tommy') {
+            url = 'https://krydos.heliohost.org/pyinfo/info';
         }
-        else if (server === "Johnny") {
-            if (module === "Python 2.7") {
-                await interaction.reply("https://krydos2.heliohost.org/pyinfo/info2.7.py")
+        else if (server === 'Johnny') {
+            url = 'https://notjohnnytamale.helioho.st/modules';
+        }
+        try {
+            const html = await fetch(url + `${version}.py`);
+            const text = await html.text();
+            if (text.length === 0) {
+                await interaction.editReply(`Could not find information on version: ${version}`);
+                return;
             }
-            if (module === "Python 3.6") {
-                await interaction.reply("https://krydos2.heliohost.org/pyinfo/info3.6.py")
+            await interaction.editReply(`\`\`\`${text}\`\`\``);
+        } catch (error) {
+            console.error(error);
+            await interaction.editReply("An error occured while fetching the Python modules. Try again later, or see https://wiki.helionet.org/tutorials/python#modules");
+        }
+
+    },
+    async autocomplete(interaction) {
+        try {
+            const focusedOption = interaction.options.getFocused(true);
+            const server = interaction.options.getString('server');
+            if (focusedOption.name === 'version') {
+                if (server === 'Tommy') {
+                    const tommyHtml = await fetch('https://krydos.heliohost.org/pyinfo');
+                    const tommyText = await tommyHtml.text();
+                    const tommyDom = new JSDOM(tommyText);
+                    const tommyVersions = tommyDom.window.document.querySelector('body').textContent.split('\n')
+                        .filter(version => version.startsWith('Python '))
+                        .map(version => version.replace('Python ', '').trim());
+
+                    const filtered = tommyVersions.filter(choice => choice.startsWith(focusedOption.value));
+                    await interaction.respond(
+                        filtered.map(choice => ({ name: choice, value: choice })),
+                    );
+
+                }
+                else if (server === 'Johnny') {
+                    const johnnyHtml = await fetch('https://krydos2.heliohost.org/pyinfo');
+                    const johnnyText = await johnnyHtml.text();
+                    const johnnyDom = new JSDOM(johnnyText);
+                    const johnnyVersions = johnnyDom.window.document.querySelector('body').textContent.split('\n')
+                        .filter(version => version.startsWith('Python '))
+                        .map(version => version.replace('Python ', '').trim());
+
+                    const filtered = johnnyVersions.filter(choice => choice.startsWith(focusedOption.value));
+                    await interaction.respond(
+                        filtered.map(choice => ({ name: choice, value: choice })),
+                    );
+                }
             }
-            if (module === "Python 3.10") {
-                await interaction.reply("https://krydos2.heliohost.org/pyinfo/info3.10.py")
-            }
+        } catch (error) {
+            console.error(error);
         }
     }
 }
