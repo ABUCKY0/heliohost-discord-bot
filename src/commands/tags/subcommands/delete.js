@@ -1,7 +1,5 @@
 const { manageTags, DBManagementActions, Status } = require('../../../database/database.js');
 const { checkAuth } = require('../../../utility/authorization.js');
-
-
 module.exports = {
     async cmdTagDelete(interaction) {
         // Verify the user has the correct permissions
@@ -17,9 +15,9 @@ module.exports = {
                 return;
             }
 
-            const tag = await manageTags(DBManagementActions.DELETE,tagName);
+            const tag = await manageTags(DBManagementActions.DELETE, tagName);
             console.log(tag);
-            if (tag === Status.SUCCESS ) {
+            if (tag === Status.SUCCESS) {
                 await interaction.editReply({ content: `Removed tag: ${tagName}` });
                 return;
             }

@@ -1,10 +1,8 @@
-// Has Modal
 const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
-
 const { checkAuth } = require('../../../utility/authorization.js');
 const { manageTags, DBManagementActions, Status } = require('../../../database/database.js');
 module.exports = {
-      async cmdTagEdit(interaction) {
+    async cmdTagEdit(interaction) {
         // Verify the user has the correct permissions
         //await interaction.deferReply();
         try {

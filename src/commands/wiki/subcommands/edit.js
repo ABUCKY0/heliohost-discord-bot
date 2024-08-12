@@ -4,7 +4,7 @@ const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = req
 const { checkAuth } = require('../../../utility/authorization.js');
 const { manageWiki, DBManagementActions, Status } = require('../../../database/database.js');
 module.exports = {
-      async cmdWikiEdit(interaction) {
+    async cmdWikiEdit(interaction) {
         // Verify the user has the correct permissions
         //await interaction.deferReply(); // Modals are incompatible with deferReply
         try {
@@ -12,7 +12,7 @@ module.exports = {
                 await interaction.reply({ content: "You don't have the Permissions to run this command.", ephemeral: true });
             }
             // verify article exists
-            const oldArticle = await manageWiki(DBManagementActions.GET,interaction.options.getString('article'));
+            const oldArticle = await manageWiki(DBManagementActions.GET, interaction.options.getString('article'));
             if (!oldArticle) {
                 await interaction.reply({ content: "Article does not exist.", ephemeral: true });
                 return;

@@ -1,7 +1,6 @@
 const { manageTags, DBManagementActions } = require('../../../database/database.js');
 module.exports = {
 	async cmdTagList(interaction) {
-
 		await interaction.deferReply();
 		try {
 			const tags = await manageTags(DBManagementActions.GETALL);
@@ -18,7 +17,7 @@ module.exports = {
 				message = message.slice(0, -2);
 			}
 			message += "`";
-			
+
 			if (message.length > 2000) {
 				// splice to 1997 and add ...
 				message = message.slice(0, 1997) + "...";

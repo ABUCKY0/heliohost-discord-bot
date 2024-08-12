@@ -1,5 +1,4 @@
 const { config } = require('../config.js');
-
 module.exports = {
     checkAuth: function (interaction) {
         try {

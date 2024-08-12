@@ -1,12 +1,6 @@
-// Moving Subcommands to their own files
-// Description: Wiki command to create, delete, edit, and view Wiki Articles
-
 const { SlashCommandBuilder } = require('discord.js');
 const { checkAuth } = require('../../utility/authorization.js');
 const { config } = require('../../config.js');
-// import from ./wiki/*.js
-
-// Add, Delete, edit, Get, List
 const { cmdWikiAdd } = require('./subcommands/add.js');
 const { cmdWikiDelete } = require('./subcommands/delete.js');
 const { cmdWikiEdit } = require('./subcommands/edit.js');
@@ -62,7 +56,7 @@ module.exports = {
                 .setDescription('List all Wiki Articles in the Database.')
         ),
     async execute(interaction) {
-        switch(interaction.options.getSubcommand()) {
+        switch (interaction.options.getSubcommand()) {
             case 'add':
                 await cmdWikiAdd(interaction);
                 break;
@@ -85,30 +79,30 @@ module.exports = {
     },
     async autocomplete(interaction) {
         try {
-			console.log("hit autocomplete");
-			const focusedOption = interaction.options.getFocused(true);
-			if (focusedOption.name === 'article') {
-				// Get all articles
-				const wikiArticles = await manageWiki(DBManagementActions.GETALL);
-				const choices = [];
-				for (const article of wikiArticles) {
-					choices.push(article.get('articleName'));
-				}
-				if (choices.length > 25) {
-					// splice to 25
-					choices.splice(25);
-				}
-				console.log(choices);
-				console.log(focusedOption);
-				const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
-				await interaction.respond(
-					filtered.map(choice => ({ name: choice, value: choice })),
-				);
-			}
+            console.log("hit autocomplete");
+            const focusedOption = interaction.options.getFocused(true);
+            if (focusedOption.name === 'article') {
+                // Get all articles
+                const wikiArticles = await manageWiki(DBManagementActions.GETALL);
+                const choices = [];
+                for (const article of wikiArticles) {
+                    choices.push(article.get('articleName'));
+                }
+                if (choices.length > 25) {
+                    // splice to 25
+                    choices.splice(25);
+                }
+                console.log(choices);
+                console.log(focusedOption);
+                const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
+                await interaction.respond(
+                    filtered.map(choice => ({ name: choice, value: choice })),
+                );
+            }
 
-		}
-		catch (error) {
-			console.error(error);
-		}
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
 }

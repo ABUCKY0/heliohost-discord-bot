@@ -18,7 +18,7 @@ const Status = Object.freeze({
   * @readonly
   * @enum {number}
  */
-const DBManagementActions = Object.freeze({ 
+const DBManagementActions = Object.freeze({
   ADD: 0,
   DELETE: 1,
   EDIT: 2,
@@ -27,7 +27,7 @@ const DBManagementActions = Object.freeze({
 });
 
 let connectionTry = 1;
-let backoffbase =  config.database.backoffBase;
+let backoffbase = config.database.backoffBase;
 /**
  * The sequelize object that connects to the database.
  * @type {Sequelize}
@@ -49,7 +49,7 @@ const sequelize = new Sequelize(config.database.name, config.database.username, 
   },
   hooks: {
     beforeConnect: (config) => {
-      console.log('[Database Hook] Attempting to connect to database, try #' + connectionTry +  " of 10. Retrying in " + backoffbase/1000+ " seconds");
+      console.log('[Database Hook] Attempting to connect to database, try #' + connectionTry + " of 10. Retrying in " + backoffbase / 1000 + " seconds");
       connectionTry++;
       backoffbase = backoffbase * config.backoffExponent;
     },
@@ -153,18 +153,18 @@ async function manageTags(action, ...args) {
         return Status.FAIL;
       }
       break;
-    
+
     case DBManagementActions.EDIT:
       const existingTag_EDIT = await Tag.findOne({ where: { tagName: oldTagName } });
       if (!existingTag_EDIT) {
         console.log("Tag does not exist.");
         return Status.FAIL;
       }
-    
+
       const updateData = {};
       if (newTagName) updateData.tagName = newTagName;
       if (newTagBody !== null) updateData.tagDescription = newTagBody;
-    
+
       try {
         await Tag.update(updateData, { where: { tagName: oldTagName } });
         console.log(`Tag updated: `, newTagName || oldTagName);
@@ -174,7 +174,7 @@ async function manageTags(action, ...args) {
         return Status.ERROR;
       }
       break;
-    
+
     case DBManagementActions.GET:
       const tag = await Tag.findOne({ where: { tagName: tagName } });
       if (tag) {
@@ -186,7 +186,7 @@ async function manageTags(action, ...args) {
         return null;
       }
       break;
-    
+
     case DBManagementActions.GETALL:
       const tags = await Tag.findAll();
       console.log(`All tags retrieved.`);
@@ -237,7 +237,7 @@ async function manageWiki(action, ...args) {
       break;
 
     case DBManagementActions.DELETE:
-      
+
       const existingArticle_REMOVE = await Wiki.findOne({ where: { articleName: articleName } });
       if (existingArticle_REMOVE) {
         try {
@@ -254,18 +254,18 @@ async function manageWiki(action, ...args) {
         return Status.FAIL;
       }
       break;
-    
+
     case DBManagementActions.EDIT:
       const existingArticle_EDIT = await Wiki.findOne({ where: { articleName: oldArticleName } });
       if (!existingArticle_EDIT) {
         console.log("Article does not exist.");
         return Status.FAIL;
       }
-    
+
       const updateData = {};
       if (newArticleName) updateData.articleName = newArticleName;
       if (newArticleBody !== null) updateData.articleDescription = newArticleBody;
-    
+
       try {
         await Wiki.update(updateData, { where: { articleName: oldArticleName } });
         console.log(`Article updated: `, newArticleName || oldArticleName);
@@ -275,7 +275,7 @@ async function manageWiki(action, ...args) {
         return Status.ERROR;
       }
       break;
-    
+
     case DBManagementActions.GET:
       const article = await Wiki.findOne({ where: { articleName: articleName } });
       if (article) {
@@ -287,7 +287,7 @@ async function manageWiki(action, ...args) {
         return null;
       }
       break;
-    
+
     case DBManagementActions.GETALL:
       const articles = await Wiki.findAll();
       console.log(`All articles retrieved.`);

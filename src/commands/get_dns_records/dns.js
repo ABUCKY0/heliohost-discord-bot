@@ -104,7 +104,7 @@ module.exports = {
                 }
             });
             // Wait until dns.resolveAny is done
-            
+
 
             console.log(records);
 
@@ -177,8 +177,8 @@ module.exports = {
                         fields.push({ name: 'DNSKEY Records', value: records.dnskey.map(record => `- \`${record.value}\``).join('\n') || 'No DNSKEY Records found.' });
                         break;
                 }
-                
-                   let dnsEmbed = new EmbedBuilder()
+
+                let dnsEmbed = new EmbedBuilder()
                     .setTitle(`DNS Records for ${domain}`)
                     .setColor('#0099ff')
                     .setTimestamp()

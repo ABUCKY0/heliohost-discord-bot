@@ -10,7 +10,7 @@ module.exports = {
 			}
 
 			const name = interaction.options.getString('tag');
-			const tag = await manageTags(DBManagementActions.GET,name);
+			const tag = await manageTags(DBManagementActions.GET, name);
 			if (tag) {
 				let message = tag.get('tagDescription') || "No Description";
 				await interaction.editReply({ content: message });

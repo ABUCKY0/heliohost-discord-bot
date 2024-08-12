@@ -16,33 +16,21 @@ module.exports = {
     async execute(interaction) {
         try {
             let url = interaction.options.getString('url');
-            // Validate that the URL is valid
-            
             // remove https:// and http:// from the URL
             url = url.replace(/(^\w+:|^)\/\//, '');
             url = url.replace(/\/$/, '');
 
             const result = await sslChecker(url);
-            console.log (result);
+            console.log(result);
             const embed = new EmbedBuilder()
                 .setColor('#0099ff')
                 .setTitle(`SSL Certificate for ${url}`)
                 .addFields(
-                    /**
-                     * Response Example
-{
-  "daysRemaining": 90,
-  "valid": true,
-  "validFrom": "issue date",
-  "validTo": "expiry date",
-  "validFor": ["www.example.com", "example.com"]
-}
-                     */
                     { name: 'Valid', value: result.valid ? "Yes" : "No", inline: false },
                     { name: 'Days Remaining', value: `${result.daysRemaining}`, inline: true },
                     { name: 'Valid From', value: `${result.validFrom}`, inline: false },
                     { name: 'Valid Until', value: `${result.validTo}`, inline: true },
-                    
+
                 )
                 .setTimestamp();
             await interaction.reply({ embeds: [embed] });

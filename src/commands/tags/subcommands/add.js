@@ -1,4 +1,3 @@
-// Has Modal
 const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 const { checkAuth } = require('../../../utility/authorization.js');
 module.exports = {

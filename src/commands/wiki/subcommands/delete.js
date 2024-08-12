@@ -1,7 +1,6 @@
 const { manageWiki, DBManagementActions, Status } = require('../../../database/database.js');
 const { checkAuth } = require('../../../utility/authorization.js');
 
-
 module.exports = {
     async cmdWikiDelete(interaction) {
         // Verify the user has the correct permissions
@@ -31,7 +30,7 @@ module.exports = {
         }
         catch (error) {
             console.error(error);
-            await interaction.editReply({ content: `There was a ${typeof(error)} error while removing the article.` });
+            await interaction.editReply({ content: `There was a ${typeof (error)} error while removing the article.` });
         }
     },
 };

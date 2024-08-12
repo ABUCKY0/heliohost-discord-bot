@@ -10,7 +10,7 @@ const startuptext = `
 +-----------------------------------------------+
 `
 
-console.log (startuptext);
+console.log(startuptext);
 console.log('Starting bot...');
 // Require the necessary discord.js classes
 const { Client, GatewayIntentBits, Collection } = require('discord.js');
@@ -81,13 +81,13 @@ for (const file of eventFiles) {
 
 // Wait to login until database is connected
 sequelize.sequelize
-  .authenticate()
-  .then(function(err) {
-    console.log('Connection has been established successfully.');
-	
-client.login(config.bot.token);
+	.authenticate()
+	.then(function (err) {
+		console.log('Connection has been established successfully.');
 
-  })
-  .catch(function (err) {
-    console.log('Unable to connect to the database:', err);
-  });
+		client.login(config.bot.token);
+
+	})
+	.catch(function (err) {
+		console.log('Unable to connect to the database:', err);
+	});

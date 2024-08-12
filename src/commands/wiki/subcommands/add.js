@@ -1,9 +1,7 @@
-// Has Modal
 const { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require('discord.js');
 const { checkAuth } = require('../../../utility/authorization.js');
 module.exports = {
     async cmdWikiAdd(interaction) {
-        // Verify the user has the correct permissions
         try {
             if (checkAuth(interaction) === false) {
                 interaction.reply({ content: "You don't have the Permissions to run this command.", ephemeral: true });

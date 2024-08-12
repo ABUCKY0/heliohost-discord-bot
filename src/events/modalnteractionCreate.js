@@ -56,15 +56,15 @@ module.exports = {
                         }
                         break;
 
-                    
+
                     /* -------------------------
                         __      _____ _  _____  
                         \ \    / /_ _| |/ /_ _| 
                         \ \/\/ / | || ' < | |  
                         \_/\_/ |___|_|\_\___| 
                        -------------------------
-                    */     
-                       case "AddArticleModal":
+                    */
+                    case "AddArticleModal":
                         await interaction.deferReply();
                         try {
                             // At this point, I need to add the inputted article to the database
@@ -118,12 +118,12 @@ module.exports = {
             }
             else if (interaction.isAutocomplete()) {
                 const command = interaction.client.commands.get(interaction.commandName);
-                
+
                 if (!command) {
                     console.error(`No command matching ${interaction.commandName} was found.`);
                     return;
                 }
-        
+
                 try {
                     await command.autocomplete(interaction);
                 } catch (error) {

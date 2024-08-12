@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, time, TimestampStyles} = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, time, TimestampStyles } = require('discord.js');
 const fetch = require('node-fetch');
 const { FetchError } = require('node-fetch');
 const { data } = require('../statuscheck/server-status');
@@ -6,12 +6,9 @@ const { data } = require('../statuscheck/server-status');
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('signups')
-    .setDescription('Checks the status of a user\'s account.'),
+        .setName('signups')
+        .setDescription('Checks the status of a user\'s account.'),
     async execute(interaction) {
-        // "[Signups](https://heliohost.org/signup/) will reset in: **{time until utc}**"
-        // Tommy        Johnny      Ricky
-        // Closed       Closed      Closed
         await interaction.deferReply();
 
         const now = new Date();
@@ -46,9 +43,9 @@ module.exports = {
             interaction.followUp("An error occured while checking if Ricky is open.");
             console.error(error);
         }
-        
+
         let embed = new EmbedBuilder()
-            .setDescription(`Signups will reset in: ` + time(midnightUTC, TimestampStyles.RelativeTime) )
+            .setDescription(`Signups will reset in: ` + time(midnightUTC, TimestampStyles.RelativeTime))
             .addFields(
                 { name: 'Tommy', value: tommyResponse, inline: true },
                 { name: 'Johnny', value: johnnyResponse, inline: true },

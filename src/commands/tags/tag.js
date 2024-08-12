@@ -1,12 +1,6 @@
-// Moving Subcommands to their own files
-// Description: Tag command to create, delete, edit, and view tags
-
 const { SlashCommandBuilder } = require('discord.js');
 const { checkAuth } = require('../../utility/authorization.js');
 const { config } = require('../../config.js');
-// import from ./tags/*.js
-
-// Add, Delete, edit, Get, List
 const { cmdTagAdd } = require('./subcommands/add.js');
 const { cmdTagDelete } = require('./subcommands/delete.js');
 const { cmdTagEdit } = require('./subcommands/edit.js');
@@ -62,7 +56,7 @@ module.exports = {
                 .setDescription('List all Tags in the Database.')
         ),
     async execute(interaction) {
-        switch(interaction.options.getSubcommand()) {
+        switch (interaction.options.getSubcommand()) {
             case 'add':
                 await cmdTagAdd(interaction);
                 break;
@@ -85,30 +79,30 @@ module.exports = {
     },
     async autocomplete(interaction) {
         try {
-			console.log("hit autocomplete");
-			const focusedOption = interaction.options.getFocused(true);
-			if (focusedOption.name === 'tag') {
-				// Get all tags
-				const tags = await manageTags(DBManagementActions.GETALL);
-				const choices = [];
-				for (const tag of tags) {
-					choices.push(tag.get('tagName'));
-				}
-				if (choices.length > 25) {
-					// splice to 25
-					choices.splice(25);
-				}
-				console.log(choices);
-				console.log(focusedOption);
-				const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
-				await interaction.respond(
-					filtered.map(choice => ({ name: choice, value: choice })),
-				);
-			}
+            console.log("hit autocomplete");
+            const focusedOption = interaction.options.getFocused(true);
+            if (focusedOption.name === 'tag') {
+                // Get all tags
+                const tags = await manageTags(DBManagementActions.GETALL);
+                const choices = [];
+                for (const tag of tags) {
+                    choices.push(tag.get('tagName'));
+                }
+                if (choices.length > 25) {
+                    // splice to 25
+                    choices.splice(25);
+                }
+                console.log(choices);
+                console.log(focusedOption);
+                const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
+                await interaction.respond(
+                    filtered.map(choice => ({ name: choice, value: choice })),
+                );
+            }
 
-		}
-		catch (error) {
-			console.error(error);
-		}
-    } 
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
 }
