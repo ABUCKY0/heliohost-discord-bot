@@ -10,7 +10,7 @@ module.exports = {
         .setDescription('Python Information')
         .addStringOption(option =>
             option.setName('server')
-                .setDescription('What server you want to get the Python Modules for.')
+                .setDescription('What server you want to retrieve the Python Modules for.')
                 .setRequired(true)
                 .setChoices(
                     { name: 'Tommy', value: 'Tommy' },
