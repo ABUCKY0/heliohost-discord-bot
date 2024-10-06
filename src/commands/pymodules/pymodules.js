@@ -35,7 +35,7 @@ module.exports = {
         }
         let url = "";
         if (server === 'Tommy') {
-            url = 'https://krydos.heliohost.org/pyinfo/info';
+            url = 'https://krydos1.heliohost.org/pyinfo/info';
         }
         else if (server === 'Johnny') {
             url = 'https://krydos2.heliohost.org/pyinfo/info';
@@ -54,7 +54,7 @@ module.exports = {
             const server = interaction.options.getString('server');
             if (focusedOption.name === 'version') {
                 if (server === 'Tommy') {
-                    const tommyHtml = await fetch('https://krydos.heliohost.org/pyinfo');
+                    const tommyHtml = await fetch('https://krydos1.heliohost.org/pyinfo');
                     const tommyText = await tommyHtml.text();
                     const tommyDom = new JSDOM(tommyText);
                     const tommyVersions = tommyDom.window.document.querySelector('body').textContent.split('\n')
