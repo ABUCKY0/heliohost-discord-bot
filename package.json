@@ -19,7 +19,7 @@
     "semver": "^7.6.2",
     "sequelize": "^6.37.3",
     "ssl-checker": "^2.0.10",
-    "undici": "^5.0.0"
+    "undici": "^5.28.5"
   },
   "devDependencies": {
     "eslint": "8.*.*"
