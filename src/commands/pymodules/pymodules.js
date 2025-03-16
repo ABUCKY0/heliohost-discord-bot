@@ -1,6 +1,6 @@
 
 const { SlashCommandBuilder, ModalSubmitFields, } = require('discord.js');
-const { autocomplete } = require('../wiki/wiki');
+// const { autocomplete } = require('../wiki/wiki');
 const fetch = require('node-fetch');
 const { FetchError } = require('node-fetch');
 const { JSDOM } = require('jsdom');

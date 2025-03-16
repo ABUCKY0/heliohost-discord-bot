@@ -1,6 +1,6 @@
 const translate = require('@iamtraction/google-translate');
 const { SlashCommandBuilder } = require('discord.js');
-const { autocomplete } = require('../wiki/wiki');
+// const { autocomplete } = require('../wiki/wiki');
 
 module.exports = {
     data: new SlashCommandBuilder()

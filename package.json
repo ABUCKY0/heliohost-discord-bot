@@ -19,7 +19,9 @@
     "semver": "^7.6.2",
     "sequelize": "^6.37.3",
     "ssl-checker": "^2.0.10",
-    "undici": "^5.0.0"
+    "undici": "^5.0.0",
+    "wtf_wikipedia": "^10.4.0",
+    "wtf-plugin-markdown": "^1.0.1"
   },
   "devDependencies": {
     "eslint": "8.*.*"
