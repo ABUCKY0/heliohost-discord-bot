@@ -13,7 +13,7 @@ const startuptext = `
 console.log(startuptext);
 console.log('Starting bot...');
 // Require the necessary discord.js classes
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, Partials } = require('discord.js');
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
@@ -44,7 +44,11 @@ sequelize.Tag.sync();
 sequelize.Wiki.sync();
 
 // Create the Client and Commands Collection
-const client = new Client({ intents: [GatewayIntentBits.Guilds], allowedMentions: { parse: ['users', 'roles'], repliedUser: true } });
+const client = new Client({ 
+	intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions],
+	partials: [Partials.Message, Partials.Channel, Partials.Reaction],
+	allowedMentions: { parse: ['users', 'roles'], repliedUser: true } 
+	});
 client.commands = new Collection();
 
 // Load all commands
